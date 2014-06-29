@@ -1,0 +1,54 @@
+<!doctype html>
+<html ng-app="ovpnDashboardApp">
+	<head>
+		<title>OpenVPN Dashboard</title>
+		<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+	</head>
+
+	<body>
+		<div class="container-fluid">
+
+			<!-- Users list -->
+			<div class="row">
+				<div class="col-md-4">
+					<table class="table table-condensed table-striped" ng-controller="ListUsers">
+						<thead>
+							<tr>
+								<th>User</th>
+								<th>Status</th>
+								<th>IP Address</th>
+								<th>Netmask</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="user in users">
+								<td>{{ user.name }}</td>
+								<td>
+									<span class="label {{ user.enable === true | conditionnal: 'label-success':'label-danger' }}">
+									{{ user.enable === true | conditionnal: 'active':'disable' }}
+									</span>
+								</td>
+								<td>{{ user.ip_address }}</td>
+								<td>{{ user.netmask }}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+
+			<!-- API status -->
+			<div class="row">
+				<div class="col-md-4" ng-controller="Status">
+					go-openvpn-api status : <span class="glyphicon {{ status_status === 200 | conditionnal: 'glyphicon-ok':'glyphicon-remove' }}"></span>
+				</div>
+			</div>
+
+		</div>
+
+
+		<script src="bower_components/angular/angular.js"></script>
+  		<script src="js/controllers.js"></script>
+  		<script src="js/filters.js"></script>
+	</body>
+</html>
